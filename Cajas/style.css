@@ -1,0 +1,62 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #98b8fd;
+    min-height: 100vh;
+}
+header{
+    display: flex;
+    justify-content: center;
+}
+nav{
+    
+    display: flex;
+    justify-content: center;
+}
+container{
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px 40px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(60, 60, 120, 0.15);
+}
+footer{
+    align-content: end;
+    padding: 30px;
+    padding-bottom: 100%;
+    color: #cfdef3;
+    background-color: black;
+}
+button{
+  
+    background-color: hsl(216, 52%, 49%);
+    border-radius: 6px;
+    color: rgb(255, 255, 255);
+}
+a{
+    padding-right: 10px;
+    
+    padding: 4px;
+    text-decoration: none;
+    background-color: hsl(130, 55%, 45%);
+    border-radius: 6px;
+    color: rgb(255, 255, 255);
+}
+.container{
+    border-radius: 10px;
+    background-color: rgb(212, 227, 255); 
+}
+.caja_form{
+    display: flex;
+    justify-content: center;
+    border-radius: 6px;
+    background-color: rgb(212, 227, 255);
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.form-label{
+    margin-top: 20px;
+}
