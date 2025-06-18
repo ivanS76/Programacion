@@ -5,36 +5,35 @@ document.getElementById("formTurno").addEventListener("submit", function (e) {
 
     const formData = leerDatos();
 
-    
     if (!formData.dni || !formData.paciente || !formData.fecha || !formData.hora) {
-        alert("Por favor, complete todos los campos obligatorios: DNI, Nombre, Fecha y Hora.");
+        mostrarAlerta("Por favor, complete todos los campos obligatorios: DNI, Nombre, Fecha y Hora.", "danger");
         return;
     }
 
-    
     if (!/^\d{1,11}$/.test(formData.dni)) {
-        alert("El DNI debe contener solo números y tener hasta 11 dígitos.");
+        mostrarAlerta("El DNI debe contener solo números y tener hasta 11 dígitos.", "danger");
         return;
     }
 
-    
     if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(formData.paciente)) {
-        alert("El nombre solo puede contener letras y espacios. No se permiten números ni caracteres especiales.");
+        mostrarAlerta("El nombre solo puede contener letras y espacios. No se permiten números ni caracteres especiales.", "danger");
         return;
     }
 
-    
     if (turnoYaExiste(formData.fecha, formData.hora)) {
-        alert("Turno ya reservado, intente nuevamente.");
+        mostrarAlerta("Turno ya reservado, intente nuevamente.", "warning");
         return;
     }
 
     if (selectedRow === null) {
         insertarNuevo(formData);
+        mostrarAlerta("Turno agregado correctamente.", "success");
     } else {
         actualizarRegistro(formData);
+        mostrarAlerta("Turno actualizado correctamente.", "success");
     }
 
+    guardarTurnosEnLocalStorage();
     resetFormulario();
 });
 
@@ -105,6 +104,11 @@ function editarTurno(td) {
 }
 
 function actualizarRegistro(data) {
+    if (turnoYaExiste(data.fecha, data.hora)) {
+        mostrarAlerta("Fecha y hora de turno reservado por otro paciente.", "danger");
+        return;
+    }
+
     selectedRow.cells[0].setAttribute("data-label", "DNI");
     selectedRow.cells[0].innerHTML = data.dni;
 
@@ -120,7 +124,6 @@ function actualizarRegistro(data) {
     selectedRow.cells[4].setAttribute("data-label", "Estado");
     selectedRow.cells[4].innerHTML = data.estado;
 
-    
     selectedRow.cells[5].setAttribute("data-label", "Acciones");
 
     selectedRow = null;
@@ -130,7 +133,9 @@ function eliminarTurno(td) {
     if (confirm("¿Deseas eliminar este turno?")) {
         const fila = td.parentElement.parentElement;
         document.getElementById("storeList").deleteRow(fila.rowIndex);
+        guardarTurnosEnLocalStorage();
         resetFormulario();
+        mostrarAlerta("Turno eliminado correctamente.", "success");
     }
 }
 
@@ -138,3 +143,45 @@ function resetFormulario() {
     document.getElementById("formTurno").reset();
     selectedRow = null;
 }
+
+
+
+function guardarTurnosEnLocalStorage() {
+    const filas = document.querySelectorAll("#storeList tbody tr");
+    const turnos = [];
+
+    filas.forEach(fila => {
+        const turno = {
+            dni: fila.cells[0].innerText,
+            paciente: fila.cells[1].innerText,
+            fecha: fila.cells[2].innerText,
+            hora: fila.cells[3].innerText,
+            estado: fila.cells[4].innerText
+        };
+        turnos.push(turno);
+    });
+
+    localStorage.setItem("turnosGuardados", JSON.stringify(turnos));
+}
+
+function cargarTurnosDesdeLocalStorage() {
+    const datos = JSON.parse(localStorage.getItem("turnosGuardados") || "[]");
+    datos.forEach(turno => insertarNuevo(turno));
+}
+
+
+function mostrarAlerta(mensaje, tipo) {
+    const alerta = document.getElementById("alertaTurno");
+    alerta.textContent = mensaje;
+    alerta.className = ""; 
+    alerta.classList.add(`alert-${tipo}`);
+    alerta.style.display = "block";
+
+    
+    setTimeout(() => {
+        alerta.style.display = "none";
+    }, 3500);
+}
+
+
+window.addEventListener("load", cargarTurnosDesdeLocalStorage);
