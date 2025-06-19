@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Odontograma</title>
+  <link rel="stylesheet" href="lila.css" />
+</head>
+<body>
+  <video autoplay muted loop id="videoFondo">
+    <source src="videos/istockphoto-967449796-640_adpp_is.mp4" type="video/mp4" />
+    Tu navegador no soporta video en HTML5.
+  </video>
+  <h1>Odontograma</h1>
+
+  <!-- Formulario de paciente -->
+  <form id="formularioPaciente" class="formulario">
+    <label>
+      Nombre:
+      <input type="text" id="nombre" required />
+    </label>
+    <label>
+      Apellido:
+      <input type="text" id="apellido" required />
+    </label>
+    <label>
+      DNI:
+      <input type="text" id="dni" required />
+    </label>
+    <button type="submit">Guardar</button>
+  </form>
+
+  <!-- Mostrar datos del paciente -->
+  <section id="datosPaciente" class="datos-paciente;">
+    <h2>Datos del Paciente</h2>
+    <p><strong>Nombre:</strong> <span id="mostrarNombre"></span></p>
+    <p><strong>Apellido:</strong> <span id="mostrarApellido"></span></p>
+    <p><strong>DNI:</strong> <span id="mostrarDni"></span></p>
+  </section>
+
+  <!-- Odontograma -->
+  <div class="odontograma">
+    <div class="fila fila-superior" id="fila-superior"></div>
+    <div class="fila fila-inferior" id="fila-inferior"></div>
+  </div>
+
+  <script src="real.js"></script>
+</body>
+</html>
