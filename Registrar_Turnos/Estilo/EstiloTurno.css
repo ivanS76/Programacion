@@ -2,11 +2,11 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Arial, sans-serif;
-    background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+    background-color: #a9d4f7;
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     padding-top: 40px;
     box-sizing: border-box;
 }
@@ -37,44 +37,69 @@ label {
     color: #2d3a4b;
 }
 
-input, select {
+input,
+select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-sizing: border-box;
+    min-height: 44px;
+    font-size: 1rem;
 }
 
-.form_action--button {
-    text-align: center;
-    margin-top: 20px;
+/* Estilo para la fila de botones */
+.botones-turno {
     display: flex;
-    justify-content: center;
     gap: 20px;
+    margin-top: 30px;
 }
 
-
-input[type="submit"], input[type="reset"] {
-    width: 160px;
-    padding: 10px 0;
-    border: none;
+.botones-turno input {
+    flex: 1;
+    font-size: 1rem;
+    padding: 10px;
     border-radius: 8px;
-    background-color: #4f8cff;
-    color: white;
+    border: none;
     cursor: pointer;
 }
 
-input[type="submit"]:hover, input[type="reset"]:hover {
-    background-color: #1e5aca;
+.botones-turno input[type="submit"] {
+    background-color: #3a6fcc;
+    color: white;
 }
 
-table {
-    margin: 0 auto;
-    border-collapse: collapse;
-    width: 100%;
-    background: #f9fafb;
+.botones-turno input[type="submit"]:hover {
+    background-color: #274f8a;
+}
+
+.botones-turno input[type="reset"] {
+    background-color: #f0ad4e;
+    color: white;
+}
+
+.botones-turno input[type="reset"]:hover {
+    background-color: #ec971f;
+}
+
+/* Estilo para tarjeta de listado de turnos con esquinas redondeadas */
+.card.mt-5.shadow {
     border-radius: 12px;
     overflow: hidden;
+}
+
+/* Mejora: redondear encabezado de la card */
+.card .card-header {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+/* Estilo para la tabla */
+table {
+    margin: 0 auto;
+    border-spacing: 0;
+    width: 100%;
+    background: #f9fafb;
     box-shadow: 0 2px 12px rgba(44, 62, 80, 0.08);
 }
 
@@ -84,6 +109,15 @@ th {
     padding: 14px;
     font-size: 1.1em;
     letter-spacing: 0.5px;
+}
+
+/* Mejora: redondear encabezado de tabla */
+thead th:first-child {
+    border-top-left-radius: 12px;
+}
+
+thead th:last-child {
+    border-top-right-radius: 12px;
 }
 
 td {
@@ -101,6 +135,7 @@ tr:hover {
     transition: background 0.2s;
 }
 
+/* Estilo responsivo tabla */
 @media (max-width: 768px) {
     table thead {
         display: none;
@@ -166,7 +201,15 @@ tr:hover {
         flex-grow: 1;
     }
 }
+@media (max-width: 600px) {
+    .bg-decoracion {
+        object-fit: cover;
+        object-position: top center;
+    }
+}
 
+
+/* Alerta */
 #alertaTurno {
     max-width: 900px;
     margin: 0 auto 30px auto;
@@ -195,3 +238,15 @@ tr:hover {
     color: #856404;
     border: 1px solid #ffeeba;
 }
+
+/* Fondo decorativo con imagen */
+.bg-decoracion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+}
+
