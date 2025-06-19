@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calendario Mensual</title>
+    <link rel="stylesheet" href="../style/calendario_demo.css" />
+</head>
+<body>
+    <nav class="navbar">
+    <ul>
+        <li><a href="calendario_mes.html">Inicio</a></li>
+        <li><a href="#">Pacientes</a></li>
+        <li><a href="#">Historial</a></li>
+        <li><a href="#">Configuración</a></li>
+    </ul>
+</nav>
+<h1 class="bienvenida">BIENVENIDO A ODONTOLOGÍA GF</h1>
+
+    <div class="app-container">
+        <div class="calendar-header">
+            <button id="anterior-btn" class="btn-today">←</button>
+            <div id="current-month-year"></div>
+            <button id="siguiente-btn" class="btn-today">→</button>
+            <button id="hoy-btn" class="btn-today">Hoy</button>
+        </div>
+
+        <div id="month-view" class="calendar-grid"></div>
+    </div>
+
+    <script src="../js/calendario_mes.js"></script>
+</body>
+</html>
