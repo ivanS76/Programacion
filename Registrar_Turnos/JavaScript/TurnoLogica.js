@@ -1,5 +1,40 @@
 let selectedRow = null;
 
+const selectHora = document.getElementById('turnoHora');
+let choicesHora = null; 
+
+function generarOpcionesHora() {
+   
+    while (selectHora.options.length > 1) {
+        selectHora.remove(1);
+    }
+
+    for (let hora = 14; hora <= 21; hora++) {
+        const minutosPermitidos = (hora === 21) ? [0] : [0, 15, 30, 45];
+        for (let minuto of minutosPermitidos) {
+            const horaStr = hora.toString().padStart(2, '0');
+            const minutoStr = minuto.toString().padStart(2, '0');
+            const opcion = document.createElement('option');
+            opcion.value = `${horaStr}:${minutoStr}`;
+            opcion.textContent = `${horaStr}:${minutoStr}`;
+            selectHora.appendChild(opcion);
+        }
+    }
+
+  
+    if (choicesHora) {
+        choicesHora.destroy();
+    }
+    choicesHora = new Choices(selectHora, {
+        shouldSort: false,
+        searchEnabled: false,
+        itemSelectText: '',
+    });
+
+    
+    selectHora.choicesInstance = choicesHora;
+}
+
 document.getElementById("formTurno").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -30,7 +65,7 @@ document.getElementById("formTurno").addEventListener("submit", function (e) {
         mostrarAlerta("Turno agregado correctamente.", "success");
     } else {
         actualizarRegistro(formData);
-        mostrarAlerta("Turno actualizado correctamente.", "success");
+        mostrarAlerta("Turno actualizado correctamente.", "warning");
     }
 
     guardarTurnosEnLocalStorage();
@@ -101,6 +136,10 @@ function editarTurno(td) {
     document.getElementById("turnoFecha").value = selectedRow.cells[2].innerHTML;
     document.getElementById("turnoHora").value = selectedRow.cells[3].innerHTML;
     document.getElementById("turnoEstado").value = selectedRow.cells[4].innerHTML;
+
+    if (selectHora.choicesInstance) {
+        selectHora.choicesInstance.setChoiceByValue(selectedRow.cells[3].innerHTML);
+    }
 }
 
 function actualizarRegistro(data) {
@@ -130,21 +169,42 @@ function actualizarRegistro(data) {
 }
 
 function eliminarTurno(td) {
-    if (confirm("¿Deseas eliminar este turno?")) {
-        const fila = td.parentElement.parentElement;
+    const fila = td.parentElement.parentElement;
+    const modalEl = document.getElementById('modalConfirmacion');
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+
+    const btnAceptar = document.getElementById('btnAceptar');
+    const btnCancelar = document.getElementById('btnCancelar');
+
+    const nuevoAceptar = btnAceptar.cloneNode(true);
+    const nuevoCancelar = btnCancelar.cloneNode(true);
+
+    btnAceptar.parentNode.replaceChild(nuevoAceptar, btnAceptar);
+    btnCancelar.parentNode.replaceChild(nuevoCancelar, btnCancelar);
+
+    nuevoAceptar.addEventListener('click', () => {
         document.getElementById("storeList").deleteRow(fila.rowIndex);
         guardarTurnosEnLocalStorage();
         resetFormulario();
-        mostrarAlerta("Turno eliminado correctamente.", "success");
-    }
+        mostrarAlerta("Turno eliminado correctamente.", "danger");
+        modal.hide();
+    });
+
+    nuevoCancelar.addEventListener('click', () => {
+        modal.hide();
+    });
 }
 
 function resetFormulario() {
     document.getElementById("formTurno").reset();
     selectedRow = null;
+
+    
+    if (selectHora.choicesInstance) {
+        selectHora.choicesInstance.setChoiceByValue('');
+    }
 }
-
-
 
 function guardarTurnosEnLocalStorage() {
     const filas = document.querySelectorAll("#storeList tbody tr");
@@ -169,19 +229,33 @@ function cargarTurnosDesdeLocalStorage() {
     datos.forEach(turno => insertarNuevo(turno));
 }
 
-
 function mostrarAlerta(mensaje, tipo) {
     const alerta = document.getElementById("alertaTurno");
     alerta.textContent = mensaje;
-    alerta.className = ""; 
+    alerta.className = "alert";
     alerta.classList.add(`alert-${tipo}`);
-    alerta.style.display = "block";
+    alerta.classList.remove("d-none");
 
-    
     setTimeout(() => {
-        alerta.style.display = "none";
+        alerta.classList.add("d-none");
     }, 3500);
 }
 
 
-window.addEventListener("load", cargarTurnosDesdeLocalStorage);
+window.addEventListener("load", () => {
+    generarOpcionesHora();
+    cargarTurnosDesdeLocalStorage();
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btnLimpiar = document.getElementById("btnLimpiar");
+
+    btnLimpiar.addEventListener("click", () => {
+        selectHora.selectedIndex = 0;
+
+        if (selectHora.choicesInstance) {
+            selectHora.choicesInstance.setChoiceByValue('');
+        }
+    });
+});

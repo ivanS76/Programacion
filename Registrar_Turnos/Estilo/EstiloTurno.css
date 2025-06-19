@@ -4,15 +4,21 @@ body {
     font-family: 'Segoe UI', Arial, sans-serif;
     background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding-top: 40px;
+    box-sizing: border-box;
 }
 
 .container {
     max-width: 900px;
-    margin: 40px auto;
+    width: 100%;
     padding: 30px 40px;
     background: #fff;
     border-radius: 18px;
     box-shadow: 0 8px 32px rgba(60, 60, 120, 0.15);
+    margin-bottom: 40px;
 }
 
 h2 {
@@ -44,17 +50,18 @@ input, select {
     margin-top: 20px;
     display: flex;
     justify-content: center;
-    gap: 20px; 
+    gap: 20px;
 }
 
+/* Botones iguales y centrados */
 input[type="submit"], input[type="reset"] {
-    padding: 10px 20px;
+    width: 160px;
+    padding: 10px 0;
     border: none;
     border-radius: 8px;
     background-color: #4f8cff;
     color: white;
     cursor: pointer;
-    margin: 0 10px;
 }
 
 input[type="submit"]:hover, input[type="reset"]:hover {
@@ -94,43 +101,75 @@ tr:hover {
     transition: background 0.2s;
 }
 
-@media (max-width: 576px) {
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
-
-    thead {
+@media (max-width: 768px) {
+    table thead {
         display: none;
     }
 
-    tr {
+    table tbody tr {
+        display: block;
         margin-bottom: 1rem;
         border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 10px;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
         background: #fff;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
-    td {
+    table tbody tr td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border: none;
+        font-size: 0.95rem;
         text-align: left;
-        padding: 8px 12px;
-        position: relative;
     }
 
-    td::before {
+    table tbody tr td::before {
         content: attr(data-label);
-        font-weight: bold;
+        font-weight: 600;
         color: #4f8cff;
-        display: block;
-        margin-bottom: 4px;
+        flex-basis: 40%;
+        text-align: left;
+    }
+
+    table tbody tr td:not(:last-child) {
+        border-bottom: 1px solid #e6e6e6;
+    }
+
+    table tbody tr td:last-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    table tbody tr td:last-child::before {
+        flex-basis: 40%;
+        text-align: left;
+        color: #4f8cff;
+        font-weight: 600;
+    }
+
+    table tbody tr td:last-child > *:not(::before) {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: flex-end;
+        flex-grow: 1;
+    }
+
+    table tbody tr td:last-child .btn-group {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: flex-end;
+        flex-grow: 1;
     }
 }
 
-
 #alertaTurno {
     max-width: 900px;
-    margin: 0 auto 30px auto; 
+    margin: 0 auto 30px auto;
     padding: 15px 20px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(44, 62, 80, 0.1);
@@ -139,17 +178,16 @@ tr:hover {
     text-align: center;
 }
 
+.alert-danger {
+    background-color: #f8d7da;
+    color: #c70f21;
+    border: 1px solid #f5c6cb;
+}
 
 .alert-success {
     background-color: #d4edda;
     color: #155724;
     border: 1px solid #c3e6cb;
-}
-
-.alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
 }
 
 .alert-warning {
