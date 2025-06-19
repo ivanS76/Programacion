@@ -1,0 +1,217 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/*body {
+  background-image: url('imagenes/2653707.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+*/
+#videoFondo {
+  position: fixed;       /* Fija el video en pantalla */
+  top: 0;                /* Arriba */
+  left: 0;               /* Izquierda */
+  width: 100vw;          /* Ancho toda la ventana */
+  height: 100vh;         /* Alto toda la ventana */
+  object-fit: cover;     /* Que el video cubra sin distorsión */
+  z-index: -1;           /* Para que quede detrás del contenido */
+}
+
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f0f6fb;
+  color: #333;
+  padding: 20px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/*body {
+  background-image: url('imagenes/2653707.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+*/
+#videoFondo {
+  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #e6f2ff;
+  color: #333;
+  padding: 20px;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Tarjetas */
+.card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(13, 110, 253, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Títulos */
+h2, h3 {
+  color: #0b5ed7;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 800;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Formularios */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #0d6efd;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ccddee;
+  border-radius: 10px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #0d6efd;
+  outline: none;
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+}
+
+/* Botones */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #0d6efd, #339cff);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+}
+
+button:hover {
+  background: linear-gradient(145deg, #0b5ed7, #007bff);
+  transform: scale(1.05);
+}
+
+/* Tabla */
+.table-container {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th, .table td {
+  padding: 14px 18px;
+  text-align: center;
+}
+
+.table th {
+  background-color: #0d6efd;
+  color: #fff;
+  font-weight: 600;
+}
+
+.table td {
+  background-color: #f4faff;
+  border-bottom: 1px solid #dbeaff;
+  transition: background 0.3s ease;
+}
+
+.table tr:hover td {
+  background-color: #e6f2ff;
+}
+
+.table td button {
+  padding: 6px 12px;
+  margin: 0 4px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #04c7e9;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.table td button:hover {
+  background-color: #007bff;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form-actions {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .table th, .table td {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
